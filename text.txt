@@ -1,0 +1,16 @@
+npm init -y
+
+npm install express body-parser mongoose cors morgan bcryptjs jsonwebtoken nodemon dotenv
+
+npm start
+
+express     nodejs framework
+body-parser รับส่งข้อมูบ client ไป server
+mongoose    db
+cors        จัดการ api
+morgan      ดู log ตอนตอนเข้ามาที่ server
+bcryptjs    เข้ารหัส
+jsonwebtoken    แปลง
+nodemon
+dotenv      เก็บ 
+
