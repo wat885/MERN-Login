@@ -14,3 +14,10 @@ jsonwebtoken    แปลง
 nodemon
 dotenv      เก็บ 
 
+// middlleware
+app.use(morgan("dev")); // แสดงlog เวลาเชือมต่อ
+app.use(bodyParser.json({limit:'20mb'})); // กำหนดข้อมูลในการเชือมต่อ
+app.use(cors()); //จัดการดึงข้อมูล api
+
+
+
