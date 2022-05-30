@@ -1,14 +1,32 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
+//controller
+const {
+  register,
+  listUser,
+  editUser,
+  deleteUser,
+} = require("../controllers/auth");
 
+//endpoint //http://localhost:3000/api/auth
+//method    get
+//Access    publish
+router.get("/auth", listUser);
 
-router.get('/',(req,res) => {
-    res.send('Hello API Roitai 55')
-})
+//endpoint //http://localhost:3000/api/auth
+//method    post ส่งข้อมูล
+//Access    publish
+router.post("/auth", register);
 
-router.get('/roitai',(req,res) => {
-    res.send('api')
-})
+//endpoint //http://localhost:3000/api/auth
+//method    put  แก้ไข
+//Access    publish
+router.put("/auth", editUser);
 
-module.exports = router
+//endpoint //http://localhost:3000/api/auth
+//method    delete
+//Access    publish
+router.delete("/auth", deleteUser);
+
+module.exports = router;
