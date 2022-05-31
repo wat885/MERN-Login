@@ -2,8 +2,10 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const dotenv = require('dotenv')
+require('dotenv').config()
 const {readdirSync} = require('fs')
+const connectDB = require('./config/db')
+
 
 const app = express()
 
@@ -11,6 +13,10 @@ const app = express()
 app.use(morgan("dev")); // แสดงlog เวลาเชือมต่อ
 app.use(bodyParser.json({limit:'20mb'})); // กำหนดข้อมูลในการเชือมต่อ
 app.use(cors()); //จัดการดึงข้อมูล api
+
+
+//connectDB
+connectDB()
 
 
 
@@ -24,7 +30,7 @@ readdirSync('./routes' ).map((r)=> app.use('/api',require('./routes/'+r)))
 
 
 
-const port = '3000'
+const port = process.env.PORT
 app.listen(port, ()=>{
     console.log('Server is runing on port '+port)
 })
