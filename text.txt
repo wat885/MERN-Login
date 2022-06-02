@@ -12,12 +12,25 @@ morgan      ดู log ตอนตอนเข้ามาที่ server
 bcryptjs    เข้ารหัส password
 jsonwebtoken    แปลง
 nodemon
-dotenv      เก็บ 
+dotenv      เก็บ ตัวแปล
 
 // middlleware
 app.use(morgan("dev")); // แสดงlog เวลาเชือมต่อ
 app.use(bodyParser.json({limit:'20mb'})); // กำหนดข้อมูลในการเชือมต่อ
 app.use(cors()); //จัดการดึงข้อมูล api
+
+
+npx create-react-app client
+
+npm install axios react-router-dom redux react-redux redux-devtools-extension react-toastify moment react-moment
+
+axios               res api  get put post
+react-router-dom    click link
+redux               จัดเก็บ state
+react-redux         
+redux-devtools-extension 
+react-toastify 
+moment react-moment
 
 
 

@@ -26,6 +26,7 @@ router.post("/register", register);
 router.post("/login", login);
 
 //endpoint http://localhost:3000/api/1
+//  /1   part  auth = midleware ถ้าไม่ผ่านก็จบต้องนี้
 router.get('/1',auth, ( req,res)=>{
   res.send('hello 1')
 })
