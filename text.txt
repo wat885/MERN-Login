@@ -32,6 +32,8 @@ redux-devtools-extension
 react-toastify 
 moment react-moment
 
+npm i antd react-toastify
+
 
 
 
