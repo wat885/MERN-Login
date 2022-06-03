@@ -29,8 +29,8 @@ exports.login = async (req, res) => {
   try {
     const {username, password} = req.body;
     var user = await User.findOneAndUpdate({username},{new:true})
-    if(user && user.enabled){
-      //Check Password
+    if(user && user.enabled ){
+      //Check Password   enabled true ไหม มี userไหม
       const isMatch = await bcrypt.compare(password, user.password)
                                           //postman   //ในmongodb
       if(!isMatch){
@@ -49,10 +49,7 @@ exports.login = async (req, res) => {
         if(err) throw err
         res.json({token,payload})
         // ดูต่อใน react เอา payload มาเพราะอะไร
-        
       })
-
-
     }else{
       return res.status(400).send('User Not Found!!')
     }
