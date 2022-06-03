@@ -20,12 +20,12 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // ไม่ referen
+    e.preventDefault(); // ไม่ refresh
     console.log("Submit", value);
     if (value.password !== value.password1) {
       alert("Password not match");
     } else {
-      // insert 
+      // เรียก functions/auth.js insert เพิ่มลงmongo
       register(value)
         .then((res) => {
           console.log(res.data);
@@ -42,6 +42,7 @@ const Register = () => {
 
   return (
     <div>
+      <h1>Register page</h1>
       <form onSubmit={handleSubmit}>
         <label>Username</label>
         <input type="text" name="username" onChange={handleChange} />
