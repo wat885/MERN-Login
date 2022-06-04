@@ -1,11 +1,25 @@
 import React, { useState } from "react";
+// fuction
 import { login } from "../../functions/auth";
+// redux
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({  }) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
   const [value, setValue] = useState({
     username: "",
     password: "",
   });
+
+  const roleBaseRedirect = (role) => {
+    if (role === "admin") {
+      navigate("/admin/index");
+    } else {
+      navigate("/user/index");
+    }
+  };
 
   const handleChange = (e) => {
     //เอาค่ามาจาก form โดย use state
@@ -19,11 +33,27 @@ const Login = () => {
     e.preventDefault(); // ไม่ refresh
     console.log("Submit", value);
 
-    // เรียก functions/auth.js insert เพิ่มลงmongo
+    // ไปตรวจสอบที่หลังบ้าน
     login(value)
       .then((res) => {
         console.log(res.data);
         alert(res.data);
+
+        // ส่งค่าไปที่ store
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            token: res.data.token,
+            username: res.data.payload.user.username,
+            role: res.data.payload.user.role,
+          },
+        });
+        console.log(res.data.payload.user.role)
+
+        // เก็บ token ที่ localStorage
+        localStorage.setItem("token", res.data.token);
+
+        roleBaseRedirect(res.data.payload.user.role);
       })
       .catch((err) => {
         console.log(err.response.data);
