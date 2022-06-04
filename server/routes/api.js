@@ -20,7 +20,7 @@ const {auth} = require('../middleware/auth')
 //Access    publish
 router.post("/register", register);
 
-//endpoint http://localhost:3000/api/register
+//endpoint http://localhost:3000/api/login
 //method    post ส่งข้อมูล
 //Access    publish
 router.post("/login", login);

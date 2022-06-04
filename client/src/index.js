@@ -6,7 +6,9 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
 //Antd
-import 'antd/dist/antd.css';
+// import "antd/dist/antd.css";
+import 'antd/dist/antd.min.css'
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
