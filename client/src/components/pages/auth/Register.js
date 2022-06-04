@@ -38,7 +38,7 @@ const Register = () => {
     }
   };
 
-  console.log(value);
+  // console.log(value);
 
   return (
     <div>
