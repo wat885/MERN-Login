@@ -5,7 +5,7 @@ import { login } from "../../functions/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({  }) => {
+const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const [value, setValue] = useState({
@@ -13,6 +13,7 @@ const Login = ({  }) => {
     password: "",
   });
 
+  // ตรวจ role แล้ว redirect ไปตาม role
   const roleBaseRedirect = (role) => {
     if (role === "admin") {
       navigate("/admin/index");
@@ -22,7 +23,7 @@ const Login = ({  }) => {
   };
 
   const handleChange = (e) => {
-    //เอาค่ามาจาก form โดย use state
+    //เอาค่ามาจาก form โดย use state เก็บไว้ใน object value รอส่ง
     setValue({
       ...value,
       [e.target.name]: e.target.value,

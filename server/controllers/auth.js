@@ -43,12 +43,12 @@ exports.login = async (req, res) => {
           role: user.role
         }
       }
-      // Gennerate Token แล้วส่งไปหน้าบ้าน
+      // Gennerate Token แล้วส่งไปหน้าบ้าน  เวลาtoken
       jwt.sign(payload, 'jwtSecret', {expiresIn: 3600} , 
       (err,token)=>{
         if(err) throw err
         res.json({token,payload})
-        // ดูต่อใน react เอา payload มาเพราะอะไร
+        // 
       })
     }else{
       return res.status(400).send('User Not Found!!')

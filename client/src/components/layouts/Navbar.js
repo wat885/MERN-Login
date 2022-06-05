@@ -8,17 +8,36 @@ import {
 } from "@ant-design/icons";
 
 //Router
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const logout = () => {
+    dispatch({
+      type: 'LOGOUT',
+      payload: null,
+    })
+    // redirect ไป home
+    navigate('/')
+
+  };
+
   return (
     <Menu mode="horizontal">
-      <Menu.Item key="home" icon={<MailOutlined />}>
+      <Menu.Item key="mail" icon={<MailOutlined />}>
         <Link to="/login">Login</Link>
         {/* to="/login"มาจากที่ตั้งใน Route */}
       </Menu.Item>
+
       <Menu.Item key="app" icon={<AppstoreOutlined />}>
         <Link to="/register">Register</Link>
+      </Menu.Item>
+
+      <Menu.Item key="out" icon={<AppstoreOutlined />} onClick={logout}>
+        Logout
       </Menu.Item>
     </Menu>
   );

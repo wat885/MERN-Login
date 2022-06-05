@@ -8,7 +8,7 @@ exports.auth = (req, res, next) => {
     if (!token) {
       return res.status(401).send("no tokenn authoriztion denied");
     }
-    //decode
+    //decode token
     const decoded = jwt.verify(token, "jwtSecret");
 
     console.log("midleware", decoded);
