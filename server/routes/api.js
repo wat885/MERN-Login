@@ -9,7 +9,7 @@ const {
   listUser,
   editUser,
   deleteUser,
-  
+  currentUser,
 } = require("../controllers/auth");
 
 // middleware
@@ -24,6 +24,13 @@ router.post("/register", register);
 //method    post ส่งข้อมูล
 //Access    publish
 router.post("/login", login);
+
+//endpoint http://localhost:3000/api/current-user
+//method    post ส่งข้อมูล
+//Access    private
+router.post("/current-user",auth, currentUser);
+
+
 
 //endpoint http://localhost:3000/api/1
 //  /1   part  auth = midleware ถ้าไม่ผ่านก็จบต้องนี้

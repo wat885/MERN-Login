@@ -1,3 +1,5 @@
+import React,{useState,useEffect} from 'react';
+
 // Page
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
@@ -13,7 +15,40 @@ import HomeAdmin from "./components/pages/admin/Home"
 // pages user
 import HomeUser from "./components/pages/user/Home"
 
+//fuction
+import {currentUser} from './components/functions/auth'
+
+// redux
+import { useDispatch } from "react-redux";
+
 function App() {
+  const dispatch = useDispatch();
+  
+  const idtoken = localStorage.token
+  if(idtoken){
+    // ส่ง tokenไปหลังบ้าน
+    currentUser(idtoken)
+    .then(res=>{
+      //
+      console.log(res.data)
+
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          token: idtoken,
+          username: res.data.username,
+          role: res.data.role,
+        },
+      });
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+
+
+
+
   return (
     <div className="App">
       <Navbar/>

@@ -60,6 +60,22 @@ exports.login = async (req, res) => {
 };
 
 
+exports.currentUser = async (req, res) => {
+  try{
+    // console.log('controller', req.user)
+    const user = await User.findOne({username: req.user.username})
+    .select('-password').exec()
+    //.select('-password') ไม่ต้องส่ง password มาด้วย
+    // console.log('user',user)
+    res.send(user) // ส่งไปหน้าบ้าน
+
+  }catch(err){
+    console.log(err);
+    res.status(500).send("Server Error!");
+  }
+
+};
+
 exports.listUser = async (req, res) => {
   try {
     res.send("list Get User");
@@ -68,6 +84,8 @@ exports.listUser = async (req, res) => {
     res.status(500).send("Server Error!");
   }
 };
+
+
 
 exports.editUser = async (req, res) => {
   try {

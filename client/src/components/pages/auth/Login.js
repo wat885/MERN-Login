@@ -48,7 +48,7 @@ const Login = ({  }) => {
             role: res.data.payload.user.role,
           },
         });
-        console.log(res.data.payload.user.role)
+        console.log(res.data.payload.user.role)  //role
 
         // เก็บ token ที่ localStorage
         localStorage.setItem("token", res.data.token);

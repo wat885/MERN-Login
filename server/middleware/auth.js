@@ -8,11 +8,13 @@ exports.auth = (req, res, next) => {
     if (!token) {
       return res.status(401).send("no tokenn authoriztion denied");
     }
-    //
+    //decode
     const decoded = jwt.verify(token, "jwtSecret");
 
     console.log("midleware", decoded);
-    // req.user = decoded.use
+    req.user = decoded.user 
+
+    //ไปทำ controllerต่อ
     next()
 
 
