@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=lzV5yZ_xxJw&list=PL3CRqF9WxjEZZL6WFETG1-MEQCmSuBDMy&index=2
+
 npm init -y
 
 npm install express body-parser mongoose cors morgan bcryptjs jsonwebtoken nodemon dotenv

@@ -21,6 +21,9 @@ import {currentUser} from './components/functions/auth'
 // redux
 import { useDispatch } from "react-redux";
 
+// Routes
+import UserRoute from './components/routes/UserRoute'
+
 function App() {
   const dispatch = useDispatch();
   
@@ -61,7 +64,12 @@ function App() {
 
         <Route path='/admin/index' element={<HomeAdmin/>}/>
         
-        <Route path='/user/index' element={<HomeUser/>}/>
+        <Route path='/user/index' element={
+          // ใส่ UserRoute ครอบหน้าที่ต้องการจำกัด ว่าเป็น user เท่านั้น
+          <UserRoute>
+            <HomeUser/>
+          </UserRoute>
+        }/>
 
 
 
