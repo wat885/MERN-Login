@@ -13,7 +13,7 @@ const {
 } = require("../controllers/auth");
 
 // middleware
-const {auth} = require('../middleware/auth')
+const {auth, adminCheck} = require('../middleware/auth')
 
 //endpoint http://localhost:3000/api/register
 //method    post ส่งข้อมูล
@@ -30,6 +30,10 @@ router.post("/login", login);
 //Access    private
 router.post("/current-user",auth, currentUser);
 
+//endpoint http://localhost:3000/api/current-admin
+//method    post ส่งข้อมูล
+//Access    private
+router.post("/current-admin",auth, adminCheck, currentUser);
 
 
 //endpoint http://localhost:3000/api/1
