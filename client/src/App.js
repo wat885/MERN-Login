@@ -11,6 +11,7 @@ import Navbar from "./components/layouts/Navbar";
 import { Routes, Route } from "react-router-dom";
 // pages admin
 import HomeAdmin from "./components/pages/admin/Home";
+import ManageAdmin from "./components/pages/admin/ManageAdmin";
 
 // pages user
 import HomeUser from "./components/pages/user/Home";
@@ -63,6 +64,15 @@ function App() {
           element={
             <AdminRoute>
               <HomeAdmin />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/manage-admin"
+          element={
+            <AdminRoute>
+              <ManageAdmin />
             </AdminRoute>
           }
         />

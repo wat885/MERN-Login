@@ -14,6 +14,7 @@ import { BrowserRouter } from "react-router-dom";
 //Antd
 // import "antd/dist/antd.css";
 import "antd/dist/antd.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // store
 const store = createStore(rootReducer, composeWithDevTools());
