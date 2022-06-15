@@ -71,6 +71,7 @@ function App() {
         <Route
           path="/admin/manage-admin"
           element={
+            // ใส่ UserRoute ครอบหน้าที่ต้องการจำกัด ว่าเป็น admin เท่านั้น
             <AdminRoute>
               <ManageAdmin />
             </AdminRoute>

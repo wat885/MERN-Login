@@ -15,7 +15,7 @@ const { auth, adminCheck } = require("../middleware/auth");
 //endpoint http://localhost:5000/api/users
 //method    get
 //Access    Private
-router.get("/users", listUser);
+router.get("/users",auth , adminCheck, listUser);
 
 //endpoint http://localhost:5000/api/users/:id
 //method    get
