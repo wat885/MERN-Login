@@ -7,6 +7,7 @@ const {
   readUser,
   updateUser,
   removeUser,
+  changeStatus,
 } = require("../controllers/user");
 
 // middleware
@@ -15,7 +16,7 @@ const { auth, adminCheck } = require("../middleware/auth");
 //endpoint http://localhost:5000/api/users
 //method    get
 //Access    Private
-router.get("/users",auth , adminCheck, listUser);
+router.get("/users", auth, adminCheck, listUser);
 
 //endpoint http://localhost:5000/api/users/:id
 //method    get
@@ -31,5 +32,10 @@ router.put("/users/:id", updateUser);
 //method    delete
 //Access    Private
 router.delete("/users/:id", removeUser);
+
+//endpoint http://localhost:5000/api/change-status
+//method    Post
+//Access    Private
+router.post("/change-status", auth, adminCheck, changeStatus);
 
 module.exports = router;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Switch } from "antd";
 import MenubarAdmin from "../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
 
 // functions
-import { listUser } from "../../functions/user";
+import { listUser, changeStatus } from "../../functions/user";
 
 const ManageAdmin = () => {
   // เข้าถึง state ใน store redux
@@ -31,6 +32,22 @@ const ManageAdmin = () => {
       });
   };
 
+  const handleOnchange = (e, id) => {
+    const value = {
+      id: id,
+      enabled: e,
+    };
+    // console.log(value);
+    changeStatus(user.token, value)
+      .then((res) => {
+        console.log(res);
+        loadData(user.token);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -55,7 +72,12 @@ const ManageAdmin = () => {
                 <tr>
                   <th scope="row">{item.username}</th>
                   <td>{item.role}</td>
-                  <td>{item.enabled}</td>
+                  <td>
+                    <Switch
+                      checked={item.enabled}
+                      onChange={(e) => handleOnchange(e, item._id)}
+                    />
+                  </td>
                   <td>{item.createdAt}</td>
                   <td>{item.updatedAt}</td>
                 </tr>

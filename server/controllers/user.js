@@ -39,7 +39,22 @@ exports.removeUser = async (req, res) => {
   try {
     //
     const id = req.params.id;
-    const user = await User.findOneAndDelete({ _id: id })
+    const user = await User.findOneAndDelete({ _id: id });
+    res.send(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error!");
+  }
+};
+
+exports.changeStatus = async (req, res) => {
+  try {
+    //
+    console.log(req.body);
+    const user = await User.findOneAndUpdate(
+      { _id: req.body.id },  // หา
+      { enabled: req.body.enabled }  //
+    );
     res.send(user);
   } catch (err) {
     console.log(err);
