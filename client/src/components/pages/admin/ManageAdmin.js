@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Switch } from "antd";
+import { Switch, Select, Tag } from "antd";
 import MenubarAdmin from "../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
 
 // functions
-import { listUser, changeStatus } from "../../functions/user";
+import { listUser, changeStatus, changeRole } from "../../functions/user";
 
 const ManageAdmin = () => {
   // เข้าถึง state ใน store redux
@@ -48,6 +48,24 @@ const ManageAdmin = () => {
       });
   };
 
+  const handleChangeRole = (e, id) => {
+    let values = {
+      id: id,
+      role: e,
+    };
+    // console.log(values);
+    changeRole(user.token, values)
+    .then( res=>{
+      console.log(res)
+      loadData(user.token);
+    }).catch(err=>{
+      console.log(err.response)
+    })
+
+  };
+
+  const roleData = ["admin", "user"];
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -71,7 +89,23 @@ const ManageAdmin = () => {
               {data.map((item, index) => (
                 <tr>
                   <th scope="row">{item.username}</th>
-                  <td>{item.role}</td>
+                  <td>
+                    <Select
+                      style={{ width: "100%" }}
+                      defaultValue={item.role}
+                      onChange={(e) => handleChangeRole(e, item._id)}
+                    >
+                      {roleData.map((item, index) => (
+                        <Select.Option value={item} key={index}>
+                          {item == "admin" ? (
+                            <Tag color="green">{item}</Tag>
+                          ) : (
+                            <Tag color="red">{item}</Tag>
+                          )}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </td>
                   <td>
                     <Switch
                       checked={item.enabled}

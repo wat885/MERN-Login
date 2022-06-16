@@ -8,6 +8,7 @@ const {
   updateUser,
   removeUser,
   changeStatus,
+  changeRole,
 } = require("../controllers/user");
 
 // middleware
@@ -37,5 +38,10 @@ router.delete("/users/:id", removeUser);
 //method    Post
 //Access    Private
 router.post("/change-status", auth, adminCheck, changeStatus);
+
+//endpoint http://localhost:5000/api/change-role
+//method    Post
+//Access    Private
+router.post("/change-role", auth, adminCheck, changeRole);
 
 module.exports = router;

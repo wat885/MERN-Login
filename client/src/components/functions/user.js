@@ -15,3 +15,11 @@ export const changeStatus = async (authtoken, value) => {
     },
   });
 };
+
+export const changeRole = async (authtoken, value) => {
+  return await axios.post(process.env.REACT_APP_API + "/change-role", value, {
+    headers: {
+      authtoken,
+    },
+  });
+};

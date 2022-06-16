@@ -53,7 +53,22 @@ exports.changeStatus = async (req, res) => {
     console.log(req.body);
     const user = await User.findOneAndUpdate(
       { _id: req.body.id },  // หา
-      { enabled: req.body.enabled }  //
+      { enabled: req.body.enabled }  // update
+    );
+    res.send(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error!");
+  }
+};
+
+exports.changeRole = async (req, res) => {
+  try {
+    //
+    console.log(req.body);
+    const user = await User.findOneAndUpdate(
+      { _id: req.body.id },  // หา
+      { role: req.body.role }  // update
     );
     res.send(user);
   } catch (err) {
