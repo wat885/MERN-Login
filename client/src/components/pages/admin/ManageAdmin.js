@@ -3,6 +3,7 @@ import { Switch, Select, Tag } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import MenubarAdmin from "../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
+import moment from "moment/min/moment-with-locales";
 
 // functions
 import {
@@ -73,14 +74,14 @@ const ManageAdmin = () => {
   const handleRemove = (id) => {
     if (window.confirm("Are You Sure Delete!!")) {
       // console.log(id)
-      removeUser(user.token,id)
-      .then((res) => {
-        console.log(res);
-        loadData(user.token);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      removeUser(user.token, id)
+        .then((res) => {
+          console.log(res);
+          loadData(user.token);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
   };
 
@@ -133,8 +134,13 @@ const ManageAdmin = () => {
                       onChange={(e) => handleOnchange(e, item._id)}
                     />
                   </td>
-                  <td>{item.createdAt}</td>
-                  <td>{item.updatedAt}</td>
+                  <td>{moment(item.createdAt).locale("th").format("ll")}</td>
+                  <td>
+                    {moment(item.updatedAt)
+                      .locale("th")
+                      .startOf(item.updatedAt)
+                      .fromNow()}
+                  </td>
                   <td>
                     <DeleteOutlined onClick={() => handleRemove(item._id)} />
                   </td>
