@@ -23,3 +23,11 @@ export const changeRole = async (authtoken, value) => {
     },
   });
 };
+
+export const removeUser = async (authtoken, id) => {
+  return await axios.delete(process.env.REACT_APP_API + "/users/" + id, {
+    headers: {
+      authtoken,
+    },
+  });
+};

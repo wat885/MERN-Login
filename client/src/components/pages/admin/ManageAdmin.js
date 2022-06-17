@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Select, Tag } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import MenubarAdmin from "../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
 
 // functions
-import { listUser, changeStatus, changeRole } from "../../functions/user";
+import {
+  listUser,
+  changeStatus,
+  changeRole,
+  removeUser,
+} from "../../functions/user";
 
 const ManageAdmin = () => {
   // เข้าถึง state ใน store redux
@@ -55,13 +61,27 @@ const ManageAdmin = () => {
     };
     // console.log(values);
     changeRole(user.token, values)
-    .then( res=>{
-      console.log(res)
-      loadData(user.token);
-    }).catch(err=>{
-      console.log(err.response)
-    })
+      .then((res) => {
+        console.log(res);
+        loadData(user.token);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
 
+  const handleRemove = (id) => {
+    if (window.confirm("Are You Sure Delete!!")) {
+      // console.log(id)
+      removeUser(user.token,id)
+      .then((res) => {
+        console.log(res);
+        loadData(user.token);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    }
   };
 
   const roleData = ["admin", "user"];
@@ -83,6 +103,7 @@ const ManageAdmin = () => {
                 <th scope="col">status</th>
                 <th scope="col">created</th>
                 <th scope="col">update</th>
+                <th scope="col">actions</th>
               </tr>
             </thead>
             <tbody>
@@ -92,7 +113,7 @@ const ManageAdmin = () => {
                   <td>
                     <Select
                       style={{ width: "100%" }}
-                      defaultValue={item.role}
+                      value={item.role}
                       onChange={(e) => handleChangeRole(e, item._id)}
                     >
                       {roleData.map((item, index) => (
@@ -114,6 +135,9 @@ const ManageAdmin = () => {
                   </td>
                   <td>{item.createdAt}</td>
                   <td>{item.updatedAt}</td>
+                  <td>
+                    <DeleteOutlined onClick={() => handleRemove(item._id)} />
+                  </td>
                 </tr>
               ))}
             </tbody>
