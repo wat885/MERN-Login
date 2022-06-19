@@ -5,8 +5,10 @@ import { login } from "../../functions/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from 'react-toastify';
+
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState({
     username: "",
@@ -37,8 +39,9 @@ const Login = () => {
     // ไปตรวจสอบที่หลังบ้าน
     login(value)
       .then((res) => {
-        console.log(res.data);
-        alert(res.data);
+        // console.log('res',res.data);
+        // alert(res.data);
+        toast.success(res.data.payload.user.username+ ' Login Success');
 
         // ส่งค่าไปที่ store
         dispatch({
@@ -49,7 +52,7 @@ const Login = () => {
             role: res.data.payload.user.role,
           },
         });
-        console.log(res.data.payload.user.role)  //role
+        // console.log(res.data.payload.user.role); //role
 
         // เก็บ token ที่ localStorage
         localStorage.setItem("token", res.data.token);
@@ -58,22 +61,41 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err.response.data);
-        alert(err.response.data);
+        toast.error(err.response.data);
       });
   };
 
   return (
-    <div>
-      <h1>Login page</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input type="text" name="username" onChange={handleChange} />
+    <div className="container p-5">
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1>Login page</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                className="form-control"
+                type="text"
+                name="username"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                className="form-control"
+                type="text"
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
 
-        <label>Password</label>
-        <input type="text" name="password" onChange={handleChange} />
+            <br />
 
-        <button>submit</button>
-      </form>
+            <button className="btn btn-success">submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

@@ -34,7 +34,8 @@ react-router-dom    click link
 redux               จัดเก็บ state
 react-redux         
 redux-devtools-extension 
-react-toastify 
+react-toastify      แจ้งเตือน
+
 moment react-moment
 
 npm i antd react-toastify

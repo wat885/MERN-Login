@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // function
 import { register } from "../../functions/auth";
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [value, setValue] = useState({
@@ -23,17 +24,19 @@ const Register = () => {
     e.preventDefault(); // ไม่ refresh
     console.log("Submit", value);
     if (value.password !== value.password1) {
-      alert("Password not match");
+      toast.error("Password not match");
+      // alert("Password not match");
     } else {
       // เรียก functions/auth.js insert เพิ่มลงmongo
       register(value)
         .then((res) => {
           console.log(res.data);
-          alert(res.data);
+          toast.success(res.data);
+
         })
         .catch((err) => {
           console.log(err.response.data);
-          alert(err.response.data);
+          toast.error(err.response.data);
         });
     }
   };
@@ -41,19 +44,46 @@ const Register = () => {
   // console.log(value);
 
   return (
-    <div>
-      <h1>Register page</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input type="text" name="username" onChange={handleChange} />
+    <div className="container p-5">
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1>Register page</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                className="form-control"
+                type="text"
+                name="username"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                className="form-control"
+                type="text"
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Confirm Password</label>
+              <input
+                className="form-control"
+                type="text"
+                name="password1"
+                onChange={handleChange}
+              />
+            </div>
+            <br />
 
-        <label>Password</label>
-        <input type="text" name="password" onChange={handleChange} />
-        <br />
-        <label>Confirm Password</label>
-        <input type="text" name="password1" onChange={handleChange} />
-        <button disabled={value.password.length < 6}>submit</button>
-      </form>
+
+            <button className="btn btn-success" disabled={value.password.length < 6}>submit</button>
+
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
