@@ -27,7 +27,7 @@ router.get("/users/:id", readUser);
 //endpoint http://localhost:5000/api/users/:id
 //method    PUT
 //Access    Private
-router.put("/users/:id", updateUser);
+router.put("/users/:id", auth, adminCheck, updateUser);
 
 //endpoint http://localhost:5000/api/users/:id
 //method    delete

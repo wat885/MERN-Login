@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Select, Tag } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { Switch, Select, Tag, Modal } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import MenubarAdmin from "../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
 import moment from "moment/min/moment-with-locales";
@@ -11,6 +11,7 @@ import {
   changeStatus,
   changeRole,
   removeUser,
+  resetPassword,
 } from "../../functions/user";
 
 const ManageAdmin = () => {
@@ -19,6 +20,43 @@ const ManageAdmin = () => {
   // console.log(user)
   const [data, setData] = useState([]);
   // console.log('data', data)
+
+  // modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [values, setValues] = useState({
+    id: "",
+    password: "",
+  });
+
+  const showModal = (id) => {
+    setIsModalVisible(true);
+    // console.log(id)
+    setValues({ ...values, id: id });
+  };
+
+  const handleChangePassword = (e) => {
+    // console.log(e.target.name);
+    // console.log(e.target.value);
+    setValues({ ...values, [e.target.name]: e.target.value });
+    //                      ตั้งชืออะไรไปอัพเดทตัวนั้น
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    // console.log(values)
+    resetPassword(user.token, values.id, { values })
+      .then((res) => {
+        console.log(res);
+        loadData(user.token);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
     //
@@ -143,11 +181,26 @@ const ManageAdmin = () => {
                   </td>
                   <td>
                     <DeleteOutlined onClick={() => handleRemove(item._id)} />
+                    <EditOutlined onClick={() => showModal(item._id)} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+          <Modal
+            title="Basic Modal"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <p>New Password :</p>
+            <input
+              onChange={handleChangePassword}
+              type="text"
+              name="password"
+            />
+          </Modal>
         </div>
       </div>
     </div>
