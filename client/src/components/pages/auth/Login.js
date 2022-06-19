@@ -5,6 +5,7 @@ import { login } from "../../functions/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { Spin } from 'antd';
 import { toast } from 'react-toastify';
 
 const Login = () => {
@@ -14,6 +15,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false)
 
   // ตรวจ role แล้ว redirect ไปตาม role
   const roleBaseRedirect = (role) => {
@@ -33,12 +36,15 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true)
+
     e.preventDefault(); // ไม่ refresh
     console.log("Submit", value);
 
     // ไปตรวจสอบที่หลังบ้าน
     login(value)
       .then((res) => {
+        setLoading(false)
         // console.log('res',res.data);
         // alert(res.data);
         toast.success(res.data.payload.user.username+ ' Login Success');
@@ -60,6 +66,7 @@ const Login = () => {
         roleBaseRedirect(res.data.payload.user.role);
       })
       .catch((err) => {
+        setLoading(false)
         console.log(err.response.data);
         toast.error(err.response.data);
       });
@@ -69,7 +76,14 @@ const Login = () => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h1>Login page</h1>
+          {loading
+          ? <h1>loading... <Spin/></h1>
+          : <h1>Login page</h1>
+          }
+
+
+          
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Username</label>
